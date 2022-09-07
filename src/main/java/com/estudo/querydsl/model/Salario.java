@@ -35,4 +35,19 @@ public class Salario implements Serializable {
 
     @Column(name = "data_fim")
     private LocalDate dataFim;
+
+    @Override
+    public String toString() {
+
+        final String result = ("Salario (" +
+            "id=" + idSalario +
+            ", idFun=" + funcionario.getIdFuncionario() +
+            ", valor=" + valor +
+            ", dataInicio=" + dataInicio +
+            ", dataFim=" + dataFim +
+            ")"
+        );
+
+        return result;
+    }
 }

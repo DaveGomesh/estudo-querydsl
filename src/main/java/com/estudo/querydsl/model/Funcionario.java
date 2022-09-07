@@ -40,4 +40,19 @@ public class Funcionario implements Serializable {
     
     @Column(name = "data_admissao", nullable = false)
     private LocalDate dataAdmissao;
+
+    @Override
+    public final String toString() {
+
+        final String result = ("Funcionario(" +
+            "id=" + idFuncionario + 
+            ", nome=" + nome + 
+            ", sexo=" + sexo + 
+            ", dataNasc=" + dataNasc + 
+            ", dataAdmissao=" + dataAdmissao + 
+            ")"
+        );
+
+        return result;
+    }
 }
