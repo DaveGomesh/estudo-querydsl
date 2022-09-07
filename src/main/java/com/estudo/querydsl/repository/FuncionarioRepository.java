@@ -1,5 +1,7 @@
 package com.estudo.querydsl.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
@@ -11,4 +13,5 @@ public interface FuncionarioRepository extends
     JpaRepository<Funcionario, Integer>, 
     QuerydslPredicateExecutor<Funcionario> {
     
+    List<Funcionario> findByNomeStartsWith(String nome);
 }
