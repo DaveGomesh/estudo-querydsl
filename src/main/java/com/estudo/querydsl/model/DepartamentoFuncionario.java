@@ -19,7 +19,7 @@ import lombok.Data;
 @Table(name = "depart_func")
 public class DepartamentoFuncionario implements Serializable{
     
-    @Column(name = "id_departamento")
+    @Column(name = "id_depart_func")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idDepartamenoFuncionario;
 
@@ -36,4 +36,19 @@ public class DepartamentoFuncionario implements Serializable{
 
     @Column(name = "data_fim")
     private LocalDate dataFim;
+
+    @Override
+    public String toString() {
+
+        final String result = ("DepartFunc(" +
+            "id=" + idDepartamenoFuncionario + 
+            ", idDep=" + departamento.getIdDepartamento() + 
+            ", idFun=" + funcionario.getIdFuncionario() + 
+            ", dataInicio=" + dataInicio + 
+            ", dataFim=" + dataFim + 
+            ")"
+        );
+
+        return result;
+    }
 }
