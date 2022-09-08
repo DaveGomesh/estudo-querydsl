@@ -52,9 +52,9 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepositoryQuery {
         final List<Predicate> listaBoolExp = new ArrayList<>();
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        listaBoolExp.add(
-            funcFilter.getIdFuncionario().applyFilter(qFuncionario.idFuncionario)
-        );
+        funcFilter.getIdFuncionario().setNumberPath(qFuncionario.idFuncionario);
+        
+        listaBoolExp.add(funcFilter.getIdFuncionario().applyFilter());
 
         // this.filtrarPorNome(funcFilter.getNome(), qFuncionario.nome, listaBoolExp);
         // this.filtrarPorSobrenome(funcFilter.getSobrenome(), qFuncionario.sobrenome, listaBoolExp);

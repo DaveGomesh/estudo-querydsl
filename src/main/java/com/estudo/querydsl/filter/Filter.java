@@ -9,11 +9,11 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import lombok.Data;
 
 @Data
-public abstract class Filter {
+public abstract class Filter implements PathFilter {
     private OperatorOption operatorOption;
     private Boolean denial;
 
-    public BooleanBuilder createComparison(
+    protected BooleanBuilder createComparison(
         BooleanExpression booleanExpression, BooleanBuilder booleanBuilder){
 
         OperatorOption operatorOption = this.operatorOption;
@@ -24,7 +24,7 @@ public abstract class Filter {
         return createComparison(booleanExpression, booleanBuilder, operatorOption);
     }
 
-    public BooleanBuilder createComparison(
+    protected BooleanBuilder createComparison(
         BooleanExpression booleanExpression, BooleanBuilder booleanBuilder, 
         OperatorOption operatorOption){
 

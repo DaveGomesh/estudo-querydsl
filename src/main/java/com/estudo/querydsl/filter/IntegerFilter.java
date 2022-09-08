@@ -22,32 +22,34 @@ public class IntegerFilter extends Filter {
 
     private List<Integer> numbers;
     private NumberFilterOption numberFilterOption;
+    private NumberPath<Integer> numberPath;
 
-    public Predicate applyFilter(NumberPath<Integer> numberPath){
+    @Override
+    public Predicate applyFilter() {
         this.listIsEmpty();
 
         Predicate predicate = null;
         switch(numberFilterOption){
             // Simple Comparison
-            case EQUALS: predicate = isEquals(numberPath); break;
-            case GREATER_THAN: predicate = isGreaterThan(numberPath); break;
-            case LESS_THAN: predicate = isLessThan(numberPath); break;
-            case GREATER_OR_EQUALS: predicate = isGreaterOrEquals(numberPath); break;
-            case LESS_OR_EQUALS: predicate = isLessOrEquals(numberPath); break;
+            case EQUALS: predicate = isEquals(); break;
+            case GREATER_THAN: predicate = isGreaterThan(); break;
+            case LESS_THAN: predicate = isLessThan(); break;
+            case GREATER_OR_EQUALS: predicate = isGreaterOrEquals(); break;
+            case LESS_OR_EQUALS: predicate = isLessOrEquals(); break;
 
             // Comparison with "ANY"
-            case EQUALS_ANY: predicate = isEqualsAny(numberPath); break;
-            case GREATER_THAN_ANY: predicate = isGreaterThanAny(numberPath); break;
-            case LESS_THAN_ANY: predicate = isLessThanAny(numberPath); break;
-            case GREATER_OR_EQUALS_ANY: predicate = isGreaterOrEqualsAny(numberPath); break;
-            case LESS_OR_EQUALS_ANY: predicate = isLessOrEqualsAny(numberPath); break;
+            case EQUALS_ANY: predicate = isEqualsAny(); break;
+            case GREATER_THAN_ANY: predicate = isGreaterThanAny(); break;
+            case LESS_THAN_ANY: predicate = isLessThanAny(); break;
+            case GREATER_OR_EQUALS_ANY: predicate = isGreaterOrEqualsAny(); break;
+            case LESS_OR_EQUALS_ANY: predicate = isLessOrEqualsAny(); break;
 
             // Comparison with "ALL"
-            case EQUALS_ALL: predicate = isEqualsAll(numberPath); break;
-            case GREATER_THAN_ALL: predicate = isGreaterThanAll(numberPath); break;
-            case LESS_THAN_ALL: predicate = isLessThanAll(numberPath); break;
-            case GREATER_OR_EQUALS_ALL: predicate = isGreaterOrEqualsAll(numberPath); break;
-            case LESS_OR_EQUALS_ALL: predicate = isLessOrEqualsAll(numberPath); break;
+            case EQUALS_ALL: predicate = isEqualsAll(); break;
+            case GREATER_THAN_ALL: predicate = isGreaterThanAll(); break;
+            case LESS_THAN_ALL: predicate = isLessThanAll(); break;
+            case GREATER_OR_EQUALS_ALL: predicate = isGreaterOrEqualsAll(); break;
+            case LESS_OR_EQUALS_ALL: predicate = isLessOrEqualsAll(); break;
         }
 
         if(needToDeny()){
@@ -58,7 +60,7 @@ public class IntegerFilter extends Filter {
     }
 
     // Simple Comparison
-    private Predicate isEquals(NumberPath<Integer> numberPath){
+    private Predicate isEquals(){
         this.listIsEmpty();
 
         final Integer number = numbers.get(0);
@@ -67,7 +69,7 @@ public class IntegerFilter extends Filter {
         return booleanExpression;
     }
 
-    private Predicate isGreaterThan(NumberPath<Integer> numberPath){
+    private Predicate isGreaterThan(){
         this.listIsEmpty();
 
         final Integer number = numbers.get(0);
@@ -76,7 +78,7 @@ public class IntegerFilter extends Filter {
         return booleanExpression;
     }
 
-    private Predicate isLessThan(NumberPath<Integer> numberPath){
+    private Predicate isLessThan(){
         this.listIsEmpty();
 
         final Integer number = numbers.get(0);
@@ -85,7 +87,7 @@ public class IntegerFilter extends Filter {
         return booleanExpression;
     }
 
-    private Predicate isGreaterOrEquals(NumberPath<Integer> numberPath){
+    private Predicate isGreaterOrEquals(){
         this.listIsEmpty();
 
         final Integer number = numbers.get(0);
@@ -94,7 +96,7 @@ public class IntegerFilter extends Filter {
         return booleanExpression;
     }
 
-    private Predicate isLessOrEquals(NumberPath<Integer> numberPath){
+    private Predicate isLessOrEquals(){
         this.listIsEmpty();
 
         final Integer number = numbers.get(0);
@@ -104,7 +106,7 @@ public class IntegerFilter extends Filter {
     }
 
     // Comparison with "ANY"
-    private Predicate isEqualsAny(NumberPath<Integer> numberPath){
+    private Predicate isEqualsAny(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -115,7 +117,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isGreaterThanAny(NumberPath<Integer> numberPath){
+    private Predicate isGreaterThanAny(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -126,7 +128,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isLessThanAny(NumberPath<Integer> numberPath){
+    private Predicate isLessThanAny(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -137,7 +139,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isGreaterOrEqualsAny(NumberPath<Integer> numberPath){
+    private Predicate isGreaterOrEqualsAny(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -148,7 +150,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isLessOrEqualsAny(NumberPath<Integer> numberPath){
+    private Predicate isLessOrEqualsAny(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -160,7 +162,7 @@ public class IntegerFilter extends Filter {
     }
 
     // // Comparison with "ALL"
-    private Predicate isEqualsAll(NumberPath<Integer> numberPath){
+    private Predicate isEqualsAll(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -171,7 +173,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isGreaterThanAll(NumberPath<Integer> numberPath){
+    private Predicate isGreaterThanAll(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -182,7 +184,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isLessThanAll(NumberPath<Integer> numberPath){
+    private Predicate isLessThanAll(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -193,7 +195,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isGreaterOrEqualsAll(NumberPath<Integer> numberPath){
+    private Predicate isGreaterOrEqualsAll(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
@@ -204,7 +206,7 @@ public class IntegerFilter extends Filter {
         return booleanBuilder;
     }
 
-    private Predicate isLessOrEqualsAll(NumberPath<Integer> numberPath){
+    private Predicate isLessOrEqualsAll(){
         this.listIsEmpty();
 
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
