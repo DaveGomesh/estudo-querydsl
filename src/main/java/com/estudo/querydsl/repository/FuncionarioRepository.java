@@ -7,11 +7,13 @@ import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.stereotype.Repository;
 
 import com.estudo.querydsl.model.Funcionario;
+import com.estudo.querydsl.repository.funcionario.FuncionarioRepositoryQuery;
 
 @Repository
 public interface FuncionarioRepository extends 
     JpaRepository<Funcionario, Integer>, 
-    QuerydslPredicateExecutor<Funcionario> {
+    QuerydslPredicateExecutor<Funcionario>,
+    FuncionarioRepositoryQuery {
     
     List<Funcionario> findByNomeStartsWith(String nome);
 }
