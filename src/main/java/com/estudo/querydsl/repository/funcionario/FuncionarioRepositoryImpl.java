@@ -1,14 +1,12 @@
 package com.estudo.querydsl.repository.funcionario;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-import org.springframework.stereotype.Component;
-
 import com.estudo.querydsl.enumerate.Sexo;
+import com.estudo.querydsl.filter2.IntegerFilter;
+import com.estudo.querydsl.filter2.PredicateFactory;
 import com.estudo.querydsl.model.Funcionario;
 import com.estudo.querydsl.model.QFuncionario;
 import com.estudo.querydsl.repository.filter.FuncionarioFilter;
@@ -27,20 +25,21 @@ import lombok.Builder;
 public class FuncionarioRepositoryImpl implements FuncionarioRepositoryQuery {
 
     private final JPAQueryFactory jpaQueryFactory;
+    private final PredicateFactory predicateFactory;
 
     @Override
     public List<Funcionario> filtrar(FuncionarioFilter funcionarioFilter) {
 
         final QFuncionario qFuncionario = QFuncionario.funcionario;
 
-        final Predicate filtros = this.criarFiltros(funcionarioFilter, qFuncionario);
+        final Predicate filtros = criarFiltros(funcionarioFilter, qFuncionario);
 
         final JPAQuery<Funcionario> query = (jpaQueryFactory
             .select(qFuncionario)
             .from(qFuncionario)
             .where(filtros)
             // .where(qFuncionario.idFuncionario.gt())
-            // .where(qFuncionario.nome.star(str))
+            // .where(qFuncionario.nome.)
         );
 
         final List<Funcionario> listaFunc = query.fetch();
@@ -49,31 +48,15 @@ public class FuncionarioRepositoryImpl implements FuncionarioRepositoryQuery {
 
     private Predicate criarFiltros(FuncionarioFilter funcFilter, QFuncionario qFuncionario){
 
-        final List<Predicate> listaBoolExp = new ArrayList<>();
+        final IntegerFilter integerFilter = funcFilter.getIdFuncionario();
+        integerFilter.setNumberPath(qFuncionario.idFuncionario);
+
+        final Predicate predicate = predicateFactory.createPredicate(integerFilter);
         final BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-        funcFilter.getIdFuncionario().setNumberPath(qFuncionario.idFuncionario);
-        
-        listaBoolExp.add(funcFilter.getIdFuncionario().applyFilter());
+        booleanBuilder.and(predicate);
 
-        // this.filtrarPorNome(funcFilter.getNome(), qFuncionario.nome, listaBoolExp);
-        // this.filtrarPorSobrenome(funcFilter.getSobrenome(), qFuncionario.sobrenome, listaBoolExp);
-        // this.filtrarPorSexo(funcFilter.getSexo(), qFuncionario.sexo, listaBoolExp);
-
-        // this.filtrarPorDataNasc(
-        //     funcFilter.getDataNascInicial(), funcFilter.getDataNascFinal(), 
-        //     qFuncionario.dataNasc, listaBoolExp
-        // );
-        // this.filtrarPorDataAdmissao(
-        //     funcFilter.getDataAdmissaoInicial(), funcFilter.getDataAdmissaoFinal(), 
-        //     qFuncionario.dataAdmissao, listaBoolExp
-        // );
-
-        listaBoolExp.stream().forEach(boolExp -> {
-            booleanBuilder.and(boolExp);
-        });
-
-        return booleanBuilder;
+        return predicate;
     }
 
     private void filtrarPorNome(String nome, StringPath pathNome, List<BooleanExpression> listaBoolExp){

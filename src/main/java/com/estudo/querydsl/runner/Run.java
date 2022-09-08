@@ -6,9 +6,8 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import com.estudo.querydsl.filter.IntegerFilter;
-import com.estudo.querydsl.filter.options.NumberFilterOption;
-import com.estudo.querydsl.filter.options.OperatorOption;
+import com.estudo.querydsl.filter2.IntegerFilter;
+import com.estudo.querydsl.filter2.options.NumberFilterOption;
 import com.estudo.querydsl.model.Funcionario;
 import com.estudo.querydsl.repository.FuncionarioRepository;
 import com.estudo.querydsl.repository.filter.FuncionarioFilter;
@@ -27,14 +26,11 @@ public class Run implements CommandLineRunner {
         final FuncionarioFilter funcionarioFilter = new FuncionarioFilter();
 
         final IntegerFilter integerFilter = new IntegerFilter();
-        integerFilter.setNumberFilterOption(NumberFilterOption.GREATER_OR_EQUALS);
-        integerFilter.setNumbers(Arrays.asList(45));
-        integerFilter.setOperatorOption(OperatorOption.OR);
-        integerFilter.setDenial(true);
+        integerFilter.setNumberFilterOption(NumberFilterOption.GREATER_OR_EQUALS_ANY);
+        integerFilter.setNumbers(Arrays.asList(48, 39));
+        // integerFilter.setDenial(true);
 
         funcionarioFilter.setIdFuncionario(integerFilter);
-
-        // funcionarioFilter.setNome("C");
 
         final List<Funcionario> listaFunc = (
             funcionarioRepository.filtrar(funcionarioFilter)
